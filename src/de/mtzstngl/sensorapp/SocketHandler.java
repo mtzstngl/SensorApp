@@ -23,7 +23,6 @@ package de.mtzstngl.sensorapp;
 
 import java.net.*;
 import java.io.*;
-
 import android.util.Log;
 
 public class SocketHandler {
@@ -56,6 +55,9 @@ public class SocketHandler {
 		try{
 			socket.close();
 		}catch(IOException e){
+			e.printStackTrace();
+			return false;
+		}catch(NullPointerException e){
 			e.printStackTrace();
 			return false;
 		}
