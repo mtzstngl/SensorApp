@@ -21,28 +21,47 @@
  */
 package de.mtzstngl.sensorapp;
 
-public class SocketHandler extends Thread {
-  private boolean running;
+public class Data{
+  private float x, y, z;
 
-  public SocketHandler(){
-    running = true;
+  public Data(float x, float y, float z){
+    this.x = x;
+    this.y = y;
+    this.z = z;
   }
 
-  public void run(){
-     
-    while(running){
-    }
+  public synchronized void setAll(float x, float y, float z){
+    this.x = x;
+    this.y = y;
+    this.z = z;
   }
 
-  public void stopSocket(){
-    running = false;
+  public synchronized void setX(float x){
+    this.x = x;
   }
 
-  private void write(String message){
-  
+  public synchronized void setY(float y){
+    this.y = y;
   }
 
-  private String read(){
-  
+  public synchronized void setZ(float z){
+    this.z = z;
+  }
+
+  public synchronized float[] getAll(){
+    float[] ret = new float[] {x, y, z};
+    return ret;
+  }
+
+  public synchronized float getX(){
+    return x;
+  }
+
+  public synchronized float getY(){
+    return y;
+  }
+
+  public synchronized float getZ(){
+    return z;
   }
 }
