@@ -21,47 +21,21 @@
  */
 package de.mtzstngl.sensorapp;
 
-public class Data{
-  private float x, y, z;
+public class Data<T> {
+  private T data;
 
-  public Data(float x, float y, float z){
-    this.x = x;
-    this.y = y;
-    this.z = z;
+  public Data(){
   }
 
-  public synchronized void setAll(float x, float y, float z){
-    this.x = x;
-    this.y = y;
-    this.z = z;
+  public Data(T data){
+    this.data = data;
   }
 
-  public synchronized void setX(float x){
-    this.x = x;
+  public synchronized void setData(T data){
+    this.data = data;
   }
 
-  public synchronized void setY(float y){
-    this.y = y;
-  }
-
-  public synchronized void setZ(float z){
-    this.z = z;
-  }
-
-  public synchronized float[] getAll(){
-    float[] ret = new float[] {x, y, z};
-    return ret;
-  }
-
-  public synchronized float getX(){
-    return x;
-  }
-
-  public synchronized float getY(){
-    return y;
-  }
-
-  public synchronized float getZ(){
-    return z;
+  public synchronized T getData(){
+    return data;
   }
 }

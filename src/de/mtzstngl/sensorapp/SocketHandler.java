@@ -44,5 +44,6 @@ public class SocketHandler extends Thread {
 
   private String read(){
   
+    return "dummy";//TODO: replace me
   }
 }
