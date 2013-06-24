@@ -1,6 +1,7 @@
 # Some ADT generated files/folders
 .settings/
-
+local.properties
+build.xml
 # Compile time generated folders
 bin/
 gen/
