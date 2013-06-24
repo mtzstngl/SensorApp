@@ -39,6 +39,9 @@ public class MainActivity extends Activity implements View.OnClickListener,
   private boolean connected = false;
   private TextView viewX, viewY, viewZ;
 
+  private SocketHandler sHandler;
+  private Data<Float> dataX, dataY, dataZ;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -50,6 +53,12 @@ public class MainActivity extends Activity implements View.OnClickListener,
 
     mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+    dataX = new Data<Float>(0F);
+    dataY = new Data<Float>(0F);
+    dataZ = new Data<Float>(0F);
+
+    //sHandler = new SocketHandler("192.168.178.30", dataX, dataY, dataZ);
   }
 
   @Override
@@ -73,6 +82,12 @@ public class MainActivity extends Activity implements View.OnClickListener,
       viewX.setText("X: " + Float.toString(event.values[0]));
       viewY.setText("Y: " + Float.toString(event.values[1]));
       viewZ.setText("Z: " + Float.toString(event.values[2]));
+
+      if(connected){
+        dataX.setData(event.values[0]);
+        dataY.setData(event.values[1]);
+        dataZ.setData(event.values[2]);
+      }
     }
   }
 
@@ -85,10 +100,18 @@ public class MainActivity extends Activity implements View.OnClickListener,
       bConnect.setText(R.string.stringButtonConnect);
       input.setEnabled(true);
       connected = false;
+      try{
+        sHandler.stopSocket();
+        sHandler.join();
+      }catch(InterruptedException e){
+        e.printStackTrace();
+      }
     }else{
       bConnect.setText(R.string.stringButtonDisconnect);
       input.setEnabled(false);
       connected = true;
+      sHandler = new SocketHandler(input.getText().toString(), dataX, dataY, dataZ);
+      sHandler.start();
     }
   }
 }
