@@ -57,4 +57,28 @@
         android:layout_below="@+id/textY"
         android:text="@string/stringZ" />
 
+    <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/textZ"
+            android:layout_alignRight="@+id/textZ"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/textZ">
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radioOne"
+                android:id="@+id/radioPlayerOne"
+                android:layout_gravity="center"
+                android:checked="true"/>
+
+        <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radioOne"
+                android:id="@+id/radioPlayerTwo"
+                android:layout_gravity="center"/>
+    </RadioGroup>
+
 </RelativeLayout>

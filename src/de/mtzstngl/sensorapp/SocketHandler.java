@@ -32,6 +32,7 @@ import android.util.Log;
 public class SocketHandler extends Thread {
   private boolean running;
   private String ip;
+  private int port;
   private Data<Float> x, y, z;
 
   private Socket socket;
@@ -39,9 +40,10 @@ public class SocketHandler extends Thread {
   private BufferedReader in;
   private static String SEPARATOR = "<|>";
 
-  public SocketHandler(String ip, Data<Float> x, Data<Float> y, Data<Float> z){
+  public SocketHandler(String ip, int port, Data<Float> x, Data<Float> y, Data<Float> z){
     running = true;
     this.ip = ip;
+    this.port = port;
     this.x = x;
     this.y = y;
     this.z = z;
@@ -49,7 +51,7 @@ public class SocketHandler extends Thread {
 
   public void run(){
     try{
-      socket = new Socket(ip, 23456);
+      socket = new Socket(ip, port);
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
       out = new PrintWriter(socket.getOutputStream());
 
@@ -71,7 +73,7 @@ public class SocketHandler extends Thread {
   public void setHost(String host){
     ip = host;
   }
-
+  
   public void stopSocket(){
     running = false;
   }

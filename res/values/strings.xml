@@ -7,5 +7,7 @@
     <string name="stringZ">Z: ?</string>
     <string name="stringButtonConnect">Connect</string>
     <string name="stringButtonDisconnect">Disconnect</string>
-
+    <string name="radioOne">Player 1</string>
+    <string name="radioTwo">Player 2</string>
+  
 </resources>

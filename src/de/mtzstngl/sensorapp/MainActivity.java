@@ -28,8 +28,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements View.OnClickListener,
@@ -58,7 +60,7 @@ public class MainActivity extends Activity implements View.OnClickListener,
     dataY = new Data<Float>(0F);
     dataZ = new Data<Float>(0F);
 
-    //sHandler = new SocketHandler("192.168.178.30", dataX, dataY, dataZ);
+    this.getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON); //keep the screen on and the values sending
   }
 
   @Override
@@ -95,10 +97,14 @@ public class MainActivity extends Activity implements View.OnClickListener,
   public void onClick(View v) {
     Button bConnect = (Button) findViewById(v.getId());
     EditText input = (EditText) findViewById(R.id.ipInput);
-
+    RadioButton radioPlayerOne = (RadioButton) findViewById(R.id.radioPlayerOne);
+    RadioButton radioPlayerTwo = (RadioButton) findViewById(R.id.radioPlayerTwo);
+    
     if(connected){
       bConnect.setText(R.string.stringButtonConnect);
       input.setEnabled(true);
+      radioPlayerOne.setEnabled(true);
+      radioPlayerTwo.setEnabled(true);
       connected = false;
       try{
         sHandler.stopSocket();
@@ -109,8 +115,14 @@ public class MainActivity extends Activity implements View.OnClickListener,
     }else{
       bConnect.setText(R.string.stringButtonDisconnect);
       input.setEnabled(false);
+      radioPlayerOne.setEnabled(false);
+      radioPlayerTwo.setEnabled(false);
       connected = true;
-      sHandler = new SocketHandler(input.getText().toString(), dataX, dataY, dataZ);
+      if(radioPlayerOne.isChecked()){
+        sHandler = new SocketHandler(input.getText().toString(), 23456, dataX, dataY, dataZ);
+      }else{
+        sHandler = new SocketHandler(input.getText().toString(), 23457, dataX, dataY, dataZ);
+      }
       sHandler.start();
     }
   }
